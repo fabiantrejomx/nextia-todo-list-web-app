@@ -12,9 +12,7 @@ import { TodoService } from '../service/todo-service';
 export class LoginComponent {
 
   public form!: FormGroup;
-
   public hidePassword = true;
-
 
   constructor(private fb: FormBuilder, public todoService: TodoService,
     public router: Router) {
@@ -22,12 +20,17 @@ export class LoginComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
     })
+
+    
+    if(LocalStorageService.getToken()){
+        this.router.navigate([`/tasks`]);
+    }
   }
 
   public login() {
     this.todoService.login(this.form.get('email')?.value, this.form.get('password')?.value)
       .subscribe(response => {
-        LocalStorageService.saveToken(response.token);
+        LocalStorageService.saveTokenAndUserId(response.token, response.userId);
         this.router.navigate(['tasks']);
       })
   }

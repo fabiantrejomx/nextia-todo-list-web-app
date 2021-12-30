@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { Router } from '@angular/router';
+import { LocalStorageService } from '../helper/local-storage';
 import { Task } from '../interface/task'
 import { TodoService } from '../service/todo-service';
 
@@ -12,20 +14,21 @@ import { TodoService } from '../service/todo-service';
 export class TaskComponent implements OnInit {
 
   public form!: FormGroup;
-
   public tasks: Task[] = [];
-
   public isEditing: boolean = false;
 
-  public userId: string = "1";//get from localstorage
+  public userId: string = "0";
 
-  constructor(private fb: FormBuilder, public todoService: TodoService) {
+  constructor(private fb: FormBuilder, public todoService: TodoService, public router: Router) {
     this.form = fb.group({
       subject: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(150)]],
       isDone: [],
       indexEdinting: [], // Use this property just to know the index of the task in the list and update the text inline without reload all the data.
       id: []
-    })
+    });
+
+    this.userId = LocalStorageService.getUserId();
+
   }
 
   ngOnInit(): void {
@@ -105,6 +108,11 @@ export class TaskComponent implements OnInit {
       }
     });
 
+  }
+
+  public logout() {
+    LocalStorageService.logout();
+    this.router.navigate(['login'])
   }
 
 }

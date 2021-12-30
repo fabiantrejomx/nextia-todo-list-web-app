@@ -1,8 +1,12 @@
-<h3 class="mt-5 pt-5">Actividades
+<div class="mt-5 pt-5">
+    <button type="button" class="btn btn-primary" (click)="logout()"> Log out</button>
+</div>
+
+<h3 class="mt-4" >Actividades
     <span *ngIf="isEditing">(EDICIÓN)</span>
 </h3>
 
-<div class="row mt-5">
+<div class="row mt-3">
 
     <div class="col-4">
         <form [formGroup]="form">
@@ -29,6 +33,9 @@
             </button>
 
             <mat-divider></mat-divider>
+        </section>
+        <section *ngIf="tasks.length == 0">
+            No tienes ninguna actividad agregada.
         </section>
     </div>
 </div>
