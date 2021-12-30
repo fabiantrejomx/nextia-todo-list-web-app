@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { LocalStorageService } from '../helper/local-storage';
 import { TodoService } from '../service/todo-service';
 
 @Component({
@@ -14,7 +16,8 @@ export class LoginComponent {
   public hidePassword = true;
 
 
-  constructor(private fb: FormBuilder, public todoService: TodoService) {
+  constructor(private fb: FormBuilder, public todoService: TodoService,
+    public router: Router) {
     this.form = fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
@@ -23,7 +26,10 @@ export class LoginComponent {
 
   public login() {
     this.todoService.login(this.form.get('email')?.value, this.form.get('password')?.value)
-      .subscribe(response => console.log(response))
+      .subscribe(response => {
+        LocalStorageService.saveToken(response.token);
+        this.router.navigate(['tasks']);
+      })
   }
 
 }
