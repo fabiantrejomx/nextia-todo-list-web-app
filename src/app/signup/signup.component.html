@@ -2,7 +2,7 @@
 
     <div class="col-5">
         <mat-card>
-            <mat-card-title>Iniciar sesion</mat-card-title>
+            <mat-card-title>Registro</mat-card-title>
 
             <form [formGroup]="form">
                 <div class="form-group">
@@ -23,9 +23,8 @@
                     </mat-form-field>
                 </div>
 
-                <button type="button" mat-button color="primary" [disabled]="form.invalid" (click)="login()">Acceder</button>
-                <button type="button" mat-button color="primary" (click)="navigateToSignup()">Registrarme</button>
-
+                <button type="button" mat-button color="primary" [disabled]="form.invalid" (click)="signup()">Registrarme</button>
+                <button type="button" mat-button color="primary" (click)="navigateToLogin()">Iniciar sesión</button>
             </form>
         </mat-card>
     </div>

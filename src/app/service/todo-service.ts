@@ -36,8 +36,14 @@ export class TodoService {
   }
 
   public login(email: string, password: string): Observable<any>{
-
     return this.baseService.post(URIS.login, {
+      email,
+      password
+    });
+  }
+
+  public signup(email: string, password: string): Observable<any>{
+    return this.baseService.post(URIS.registration, {
       email,
       password
     });

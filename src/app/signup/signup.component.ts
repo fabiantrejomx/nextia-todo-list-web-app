@@ -5,11 +5,11 @@ import { LocalStorageService } from '../helper/local-storage';
 import { TodoService } from '../service/todo-service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-signup',
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.css']
 })
-export class LoginComponent {
+export class SignupComponent {
 
   public form!: FormGroup;
   public hidePassword = true;
@@ -27,17 +27,15 @@ export class LoginComponent {
     }
   }
 
-  public login() {
-    this.todoService.login(this.form.get('email')?.value, this.form.get('password')?.value)
-      .subscribe(response => {
-        LocalStorageService.saveTokenAndUserId(response.token, response.userId);
-        this.router.navigate(['tasks']);
+  public signup() {
+    this.todoService.signup(this.form.get('email')?.value, this.form.get('password')?.value)
+      .subscribe(() => {
+        this.router.navigate(['login']);
       })
   }
-  
-  public navigateToSignup() {
-    this.router.navigate(['signup']);
-  }
 
+  public navigateToLogin() {
+    this.router.navigate(['login']);
+  }
 
 }

@@ -11,4 +11,5 @@ export class URIS {
     public static readonly getAll = apiBaseUrl + '/task';
 
     public static readonly login = apiBaseUrl + '/api/v1/login';
+    public static readonly registration = apiBaseUrl + '/api/v1/registration';
 }
