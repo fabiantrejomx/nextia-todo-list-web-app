@@ -5,26 +5,26 @@
 <div class="row mt-5">
 
     <div class="col-4">
-        <form>
+        <form [formGroup]="form">
             <mat-form-field class="full-width-input" appearance="outline">
                 <mat-label>Nueva actividad</mat-label>
-                <textarea rows="4" matInput placeholder="Ex. Wake up at 8.am"></textarea>
+                <textarea rows="4" matInput placeholder="Ex. Wake up at 8.am" formControlName="subject"></textarea>
             </mat-form-field>
 
         </form>
-        <button mat-button type="button" color="primary">Guardar</button>
-        <button mat-button color="warn" >Cancelar</button>
+        <button mat-button type="button" color="primary" (click)="addTask()" [disabled]="form.invalid">Guardar</button>
+        <button mat-button color="warn" (click)="clearActions()">Cancelar</button>
 
     </div>
 
     <div class="col-6 offset-2" [hidden]="isEditing">
         <section class="" *ngFor="let task of tasks; last as last; index as index">
-            <mat-checkbox class="example-margin" [checked]="task.isDone">{{task.subject}}</mat-checkbox>
+            <mat-checkbox class="example-margin" [checked]="task.isDone" (change)="markAsCheckOrUnchecked($event, task, index)">{{task.subject}}</mat-checkbox>
 
-            <button aria-label="edit" mat-button color="primary" class="pr-0">
+            <button aria-label="edit" mat-button color="primary" class="pr-0" (click)="editTask(task, index)">
                 <mat-icon aria-hidden="true" aria-label="edit">edit</mat-icon>
             </button>
-            <button aria-label="delete" mat-button color="primary" class="pl-0">
+            <button aria-label="delete" mat-button color="primary" class="pl-0" (click)="deleteTask(index, task.id)">
                 <mat-icon aria-hidden="true" aria-label="edit">delete</mat-icon>
             </button>
 
