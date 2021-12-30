@@ -32,7 +32,7 @@ export class TaskComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.todoService.getAll(this.userId)
+    this.todoService.getAll()
       .subscribe(response => this.tasks = response.taskInfo)
   }
 

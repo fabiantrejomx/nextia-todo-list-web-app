@@ -29,10 +29,10 @@ export class TodoService {
             .delete.replace("{taskId}", taskId));
   }
 
-  public getAll(userId: string): Observable<any> {
+  public getAll(): Observable<any> {
     return this.baseService
         .get(URIS
-            .getAll.replace('{userId}', userId));
+            .getAll);
   }
 
   public login(email: string, password: string): Observable<any>{
